@@ -373,7 +373,7 @@ export function dayOfWeekPerformance(computed: ComputedTrade[]) {
     (t) => String(new Date(t.closedAt ?? t.openedAt).getUTCDay()),
     (k) => names[Number(k)],
     (k) => paletteColor(Number(k))
-  );
+  ).sort((a, b) => Number(a.key) - Number(b.key));
 }
 
 export function hourPerformance(computed: ComputedTrade[]) {
