@@ -1,0 +1,183 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular",
+    Menlo, monospace;
+
+  /* Surfaces */
+  --color-background: #07080b;
+  --color-foreground: #e9e9ee;
+  --color-card: #0e0f14;
+  --color-card-foreground: #e9e9ee;
+  --color-popover: #121319;
+  --color-popover-foreground: #e9e9ee;
+
+  /* Brand */
+  --color-primary: #7c6aff;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #17181f;
+  --color-secondary-foreground: #e9e9ee;
+  --color-accent: #1a1b23;
+  --color-accent-foreground: #e9e9ee;
+
+  /* Semantic */
+  --color-muted: #16171d;
+  --color-muted-foreground: #8b8d99;
+  --color-destructive: #f43f5e;
+  --color-destructive-foreground: #ffffff;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+
+  /* P&L semantics */
+  --color-profit: #34d399;
+  --color-loss: #fb7185;
+  --color-flat: #8b8d99;
+
+  /* Lines */
+  --color-border: #1e2028;
+  --color-input: #1a1c24;
+  --color-ring: #7c6aff;
+
+  /* Charts */
+  --color-chart-1: #7c6aff;
+  --color-chart-2: #34d399;
+  --color-chart-3: #f59e0b;
+  --color-chart-4: #38bdf8;
+  --color-chart-5: #fb7185;
+  --color-chart-6: #a78bfa;
+  --color-chart-7: #2dd4bf;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+
+  --shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.03) inset,
+    0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 12px 32px -12px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 40px -10px rgba(124, 106, 255, 0.35);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background-image: radial-gradient(
+        60rem 40rem at 12% -12%,
+        rgba(124, 106, 255, 0.09),
+        transparent 60%
+      ),
+      radial-gradient(
+        50rem 36rem at 100% 0%,
+        rgba(52, 211, 153, 0.05),
+        transparent 55%
+      );
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 32%, transparent);
+    color: var(--color-foreground);
+  }
+
+  /* Scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #26272f transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #26272f;
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: #32343e;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-gradient {
+  background: linear-gradient(120deg, #ffffff 0%, #c9c6ff 55%, #8f86ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility grid-pattern {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@utility card-hover {
+  transition: border-color 0.2s ease, background-color 0.2s ease,
+    transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    background-color: color-mix(in oklab, var(--color-card) 92%, white 2%);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+@utility animate-pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
