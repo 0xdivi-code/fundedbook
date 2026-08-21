@@ -45,7 +45,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               exit={{ opacity: 0, y: 8, scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
               className={cn(
-                "pointer-events-auto flex items-start gap-3 rounded-xl border bg-popover p-3.5 shadow-2xl",
+                "pointer-events-auto flex items-start gap-3 rounded-xl border border-primary/15 bg-[linear-gradient(160deg,rgba(0,245,160,0.06)_0%,rgba(12,21,18,0.97)_45%,rgba(6,11,9,0.98)_100%)] backdrop-blur-xl p-3.5 shadow-[0_22px_60px_-22px_rgba(0,0,0,0.9)]",
                 t.variant === "success" && "border-profit/25",
                 t.variant === "error" && "border-loss/25",
                 t.variant === "info" && "border-border"

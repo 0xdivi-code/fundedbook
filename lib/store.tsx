@@ -27,7 +27,7 @@ export const DEFAULT_SETTINGS: Settings = {
   showUnrealized: true,
   compactNumbers: false,
   theme: "dark",
-  accent: "#7c6aff",
+  accent: "#00f5a0",
 };
 
 interface PersistShape {

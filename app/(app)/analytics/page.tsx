@@ -201,7 +201,7 @@ export default function AnalyticsPage() {
                 </span>
                 <div className="h-2 flex-1 overflow-hidden rounded-full bg-secondary">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-primary to-[#8f7bff]"
+                    className="h-full rounded-full bg-[linear-gradient(90deg,#00f5a0_0%,#d7ff3e_100%)]"
                     style={{ width: `${(r.count / maxCount) * 100}%` }}
                   />
                 </div>

@@ -167,7 +167,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border/70 bg-background/75 px-4 backdrop-blur-xl sm:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border/70 bg-background/70 px-4 backdrop-blur-xl sm:px-6 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-[-1px] after:h-px after:bg-[linear-gradient(90deg,transparent,rgba(0,245,160,0.5),rgba(215,255,62,0.35),transparent)]">
       <Button
         variant="ghost"
         size="icon"
@@ -179,21 +179,21 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
       </Button>
 
       <div className="flex min-w-0 flex-1 flex-col leading-tight">
-        <h1 className="truncate text-[17px] font-semibold tracking-tight text-foreground">
+        <h1 className="truncate font-display text-[16px] font-semibold tracking-tight text-foreground">
           {title}
         </h1>
-        <p className="hidden truncate text-[12px] text-muted-foreground sm:block">
+        <p className="hidden truncate text-[11.5px] text-muted-foreground sm:block">
           {sub} · {format(new Date(), "EEEE, MMM d")}
         </p>
       </div>
 
       <button
         onClick={openCommand}
-        className="group hidden h-9 w-56 items-center gap-2 rounded-lg border border-border bg-card/60 px-3 text-[13px] text-muted-foreground transition-colors hover:border-white/15 hover:text-foreground md:flex cursor-pointer"
+        className="group hidden h-9 w-56 items-center gap-2 rounded-lg border border-border bg-card/60 px-3 text-[13px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary md:flex cursor-pointer"
       >
         <Search className="h-4 w-4" />
         <span className="flex-1 text-left">Search trades…</span>
-        <kbd className="rounded border border-border bg-secondary px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+        <kbd className="rounded border border-border bg-secondary px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground">
           ⌘K
         </kbd>
       </button>
@@ -256,8 +256,8 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="flex items-center gap-1.5 rounded-full border border-border bg-card/60 py-1 pl-1 pr-2 transition-colors hover:border-white/15 cursor-pointer">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#38bdf8] to-[#7c6aff] text-[11px] font-bold text-white">
+          <button className="flex items-center gap-1.5 rounded-full border border-border bg-card/60 py-1 pl-1 pr-2 transition-colors hover:border-primary/40 cursor-pointer">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[linear-gradient(135deg,#d7ff3e_0%,#00f5a0_100%)] text-[11px] font-bold text-[#03140c]">
               {initials}
             </span>
             <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />

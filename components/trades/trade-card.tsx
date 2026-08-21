@@ -119,7 +119,7 @@ export function TradeCard({ trade, index = 0 }: { trade: Trade; index?: number }
             {t.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="rounded-md bg-white/[0.05] px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground"
+                className="rounded-md bg-primary/[0.07] px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground"
               >
                 #{tag}
               </span>

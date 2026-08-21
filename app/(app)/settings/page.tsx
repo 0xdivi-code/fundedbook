@@ -28,12 +28,12 @@ import { cn } from "@/lib/utils";
 import { formatCurrency, formatPercent } from "@/lib/format";
 
 const ACCENTS = [
-  "#7c6aff",
-  "#34d399",
-  "#38bdf8",
-  "#f59e0b",
-  "#fb7185",
-  "#a78bfa",
+  "#00f5a0",
+  "#d7ff3e",
+  "#00d9c0",
+  "#8bff5a",
+  "#a6ff00",
+  "#3ee6b0",
 ];
 
 function exportData(trades: unknown, strategies: unknown, settings: unknown) {
@@ -103,7 +103,7 @@ export default function SettingsPage() {
     setDefaultQuantity("100");
     setShowUnrealized(true);
     setCompactNumbers(false);
-    setAccent("#7c6aff");
+    setAccent("#00f5a0");
     toast({ variant: "info", title: "Journal cleared", description: "All trades, strategies and settings were reset to a clean slate." });
   };
 
@@ -273,7 +273,7 @@ export default function SettingsPage() {
         </p>
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-secondary/40 px-4 py-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#38bdf8] to-[#7c6aff] text-[11px] font-bold text-white">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,#d7ff3e_0%,#00f5a0_100%)] text-[11px] font-bold text-[#03140c]">
               {(user?.email ?? "FB").slice(0, 2).toUpperCase()}
             </div>
             <div>

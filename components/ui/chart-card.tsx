@@ -22,7 +22,7 @@ export function ChartCard({
     <Card className={cn("flex flex-col p-5", className)}>
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <h3 className="text-[15px] font-semibold tracking-tight text-foreground">
+          <h3 className="font-display text-[14.5px] font-semibold tracking-tight text-foreground">
             {title}
           </h3>
           {description && (

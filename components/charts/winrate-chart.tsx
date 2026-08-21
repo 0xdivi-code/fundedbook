@@ -24,7 +24,7 @@ export function WinRateChart({
     <div style={{ height }} className="w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 10, right: 8, left: -8, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,245,160,0.07)" vertical={false} />
           <XAxis
             dataKey="label"
             tick={axisStyle}
@@ -42,13 +42,13 @@ export function WinRateChart({
           />
           <Tooltip
             content={<ChartTooltip formatter={(v) => formatPercent(v, 0)} />}
-            cursor={{ stroke: "rgba(255,255,255,0.15)", strokeDasharray: "3 3" }}
+            cursor={{ stroke: "rgba(215,255,62,0.35)", strokeDasharray: "3 3" }}
           />
-          <ReferenceLine y={50} stroke="rgba(255,255,255,0.12)" strokeDasharray="4 4" />
+          <ReferenceLine y={50} stroke="rgba(0,245,160,0.18)" strokeDasharray="4 4" />
           <Line
             type="monotone"
             dataKey="winRate"
-            stroke="#7c6aff"
+            stroke="#00f5a0"
             strokeWidth={2}
             dot={false}
             activeDot={{ r: 4, strokeWidth: 0 }}

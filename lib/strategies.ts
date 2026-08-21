@@ -24,7 +24,7 @@ export const STARTER_STRATEGIES: Strategy[] = [
     ],
     market: "US Equities",
     timeframe: "5m / 15m",
-    color: "#7c6aff",
+    color: "#00f5a0",
   },
   {
     id: "vwap",
@@ -41,7 +41,7 @@ export const STARTER_STRATEGIES: Strategy[] = [
     ],
     market: "US Equities",
     timeframe: "5m",
-    color: "#34d399",
+    color: "#d7ff3e",
   },
   {
     id: "gap-and-go",
@@ -58,7 +58,7 @@ export const STARTER_STRATEGIES: Strategy[] = [
     ],
     market: "US Equities",
     timeframe: "1m / 5m",
-    color: "#f59e0b",
+    color: "#00d9c0",
   },
   {
     id: "trend-pullback",
@@ -71,6 +71,6 @@ export const STARTER_STRATEGIES: Strategy[] = [
     confluences: ["1h trend aligned", "Pullback under 38.2% Fib", "Higher lows intact"],
     market: "Stocks / Futures",
     timeframe: "15m / 1h",
-    color: "#38bdf8",
+    color: "#8bff5a",
   },
 ];

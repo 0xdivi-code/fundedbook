@@ -16,7 +16,7 @@ export function EmptyDataHint({
 }) {
   return (
     <div className="flex items-start gap-3 rounded-2xl border border-dashed border-border bg-card/60 p-5">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary">
+      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(215,255,62,0.18),rgba(0,245,160,0.16))] text-primary">
         <Lightbulb className="h-4 w-4" />
       </span>
       <div>
