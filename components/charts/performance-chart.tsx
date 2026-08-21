@@ -29,7 +29,7 @@ export function PerformanceBars({
           layout="vertical"
           margin={{ top: 4, right: 12, left: 8, bottom: 0 }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,245,160,0.07)" horizontal={false} />
           <XAxis
             type="number"
             tick={axisStyle}
@@ -46,7 +46,7 @@ export function PerformanceBars({
             axisLine={false}
           />
           <Tooltip
-            cursor={{ fill: "rgba(255,255,255,0.04)" }}
+            cursor={{ fill: "rgba(0,245,160,0.06)" }}
             content={
               <ChartTooltip
                 formatter={(v) => formatCurrency(v)}

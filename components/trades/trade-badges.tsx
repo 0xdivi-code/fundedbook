@@ -36,7 +36,7 @@ export function StrategyDot({ strategy }: { strategy?: Strategy }) {
   return (
     <span
       className="inline-block h-2 w-2 rounded-full"
-      style={{ backgroundColor: strategy?.color ?? "#8b8d99" }}
+      style={{ backgroundColor: strategy?.color ?? "#7b9188" }}
     />
   );
 }
@@ -51,7 +51,7 @@ export function StrategyBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md border border-border bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-muted-foreground",
+        "inline-flex items-center gap-1.5 rounded-md border border-border bg-primary/[0.06] px-2 py-0.5 text-[11px] font-medium text-muted-foreground",
         className
       )}
     >

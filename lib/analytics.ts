@@ -313,16 +313,16 @@ export function performanceBy(
 }
 
 const PALETTE = [
-  "#7c6aff",
-  "#34d399",
-  "#f59e0b",
-  "#38bdf8",
-  "#fb7185",
-  "#a78bfa",
-  "#2dd4bf",
-  "#fbbf24",
-  "#4ade80",
-  "#818cf8",
+  "#00f5a0",
+  "#d7ff3e",
+  "#00d9c0",
+  "#8bff5a",
+  "#a6ff00",
+  "#3ee6b0",
+  "#5ce1b6",
+  "#c6f24a",
+  "#00bfa0",
+  "#7ef7c2",
 ];
 
 const paletteColor = (i: number) => PALETTE[i % PALETTE.length];
@@ -336,7 +336,7 @@ export function strategyPerformance(
     computed,
     (t) => t.strategyId,
     (k) => strategies.find((s) => s.id === k)?.name ?? k,
-    (k) => colorMap.get(k) ?? "#8b8d99"
+    (k) => colorMap.get(k) ?? "#7b9188"
   );
 }
 
@@ -362,7 +362,7 @@ export function directionPerformance(computed: ComputedTrade[]) {
     computed,
     (t) => t.direction,
     (k) => (k === "long" ? "Long" : "Short"),
-    (k) => (k === "long" ? "#34d399" : "#fb7185")
+    (k) => (k === "long" ? "#00f5a0" : "#ff4d6d")
   );
 }
 
@@ -414,6 +414,6 @@ export function gradePerformance(computed: ComputedTrade[]) {
     (t) => t.grade || "—",
     (k) => `Grade ${k}`,
     (k) =>
-      k === "A" ? "#34d399" : k === "B" ? "#38bdf8" : k === "C" ? "#f59e0b" : "#fb7185"
+      k === "A" ? "#00f5a0" : k === "B" ? "#d7ff3e" : k === "C" ? "#00d9c0" : "#ff4d6d"
   );
 }

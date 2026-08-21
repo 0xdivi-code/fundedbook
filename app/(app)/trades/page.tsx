@@ -377,7 +377,7 @@ function Table({
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: Math.min(i * 0.02, 0.3) }}
-                  className="border-b border-border/60 transition-colors last:border-0 hover:bg-white/[0.02]"
+                  className="border-b border-border/60 transition-colors last:border-0 hover:bg-primary/[0.04]"
                 >
                   <td className="px-4 py-3 text-[13px] text-muted-foreground">
                     {formatShortDate(t.openedAt)}

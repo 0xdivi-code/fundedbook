@@ -30,10 +30,16 @@ export default function AppLayout({
 
   if (loading || !user) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-5">
-        <Logo />
-        <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" />
+      <div className="relative flex min-h-screen flex-col items-center justify-center gap-5 overflow-hidden">
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 grid-pattern opacity-50" />
+          <div className="absolute left-1/2 top-1/2 h-[420px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[140px] animate-aurora" />
+        </div>
+        <div className="relative">
+          <Logo />
+        </div>
+        <div className="relative flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin text-primary" />
           {loading ? "Checking your session…" : "Redirecting to sign in…"}
         </div>
       </div>

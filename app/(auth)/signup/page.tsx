@@ -65,8 +65,8 @@ export default function SignupPage() {
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-profit/15 text-profit">
           <MailCheck className="h-6 w-6" />
         </div>
-        <h1 className="mt-5 text-[22px] font-bold tracking-tight">
-          Check your inbox
+        <h1 className="mt-5 text-[22px] font-bold leading-tight">
+          <span className="text-gradient-emerald">Check your inbox</span>
         </h1>
         <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">
           We sent a confirmation link to{" "}
@@ -92,8 +92,11 @@ export default function SignupPage() {
     <div>
       <SetupNotice />
 
-      <h1 className="text-[22px] font-bold tracking-tight">
-        Create your journal
+      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/70">
+        New Account
+      </p>
+      <h1 className="mt-2 text-[24px] font-bold leading-tight">
+        <span className="text-gradient">Create your journal</span>
       </h1>
       <p className="mt-1.5 text-[13.5px] text-muted-foreground">
         Free email + password account. Your journal starts empty and private —

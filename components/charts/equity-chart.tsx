@@ -25,11 +25,11 @@ export function EquityChart({ data }: { data: EquityPoint[] }) {
         <AreaChart data={data} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="equityFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={up ? "#34d399" : "#fb7185"} stopOpacity={0.28} />
-              <stop offset="100%" stopColor={up ? "#34d399" : "#fb7185"} stopOpacity={0} />
+              <stop offset="0%" stopColor={up ? "#00f5a0" : "#ff4d6d"} stopOpacity={0.28} />
+              <stop offset="100%" stopColor={up ? "#00f5a0" : "#ff4d6d"} stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,245,160,0.07)" vertical={false} />
           <XAxis
             dataKey="label"
             tick={axisStyle}
@@ -48,17 +48,17 @@ export function EquityChart({ data }: { data: EquityPoint[] }) {
           />
           <Tooltip
             content={<ChartTooltip formatter={(v) => formatCurrency(v)} />}
-            cursor={{ stroke: "rgba(255,255,255,0.15)", strokeDasharray: "3 3" }}
+            cursor={{ stroke: "rgba(215,255,62,0.35)", strokeDasharray: "3 3" }}
           />
-          <ReferenceLine y={0} stroke="rgba(255,255,255,0.12)" />
+          <ReferenceLine y={0} stroke="rgba(0,245,160,0.18)" />
           <Area
             type="monotone"
             dataKey="equity"
-            stroke={up ? "#34d399" : "#fb7185"}
+            stroke={up ? "#00f5a0" : "#ff4d6d"}
             strokeWidth={2}
             fill="url(#equityFill)"
             dot={false}
-            activeDot={{ r: 4, strokeWidth: 0, fill: "#fff" }}
+            activeDot={{ r: 4, strokeWidth: 0, fill: "#d7ff3e" }}
             animationDuration={700}
           />
         </AreaChart>

@@ -302,7 +302,7 @@ export default function TradeDetailsPage() {
                 t.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-md bg-white/[0.05] px-2 py-1 text-[12px] font-medium text-muted-foreground"
+                    className="rounded-md bg-primary/[0.07] px-2 py-1 text-[12px] font-medium text-muted-foreground"
                   >
                     #{tag}
                   </span>

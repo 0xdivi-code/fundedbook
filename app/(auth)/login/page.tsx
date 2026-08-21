@@ -42,8 +42,13 @@ export default function LoginPage() {
     <div>
       <SetupNotice />
 
-      <h1 className="text-[22px] font-bold tracking-tight">Welcome back</h1>
-      <p className="mt-1.5 text-[13.5px] text-muted-foreground">
+      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/70">
+        Secure Access
+      </p>
+      <h1 className="mt-2 text-[24px] font-bold leading-tight">
+        <span className="text-gradient">Welcome back</span>
+      </h1>
+      <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">
         Sign in with your email and password to open your journal.
       </p>
 
@@ -112,7 +117,7 @@ export default function LoginPage() {
         New to FundedBook?{" "}
         <Link
           href="/signup"
-          className="font-medium text-primary underline-offset-4 hover:underline"
+          className="font-semibold text-lemon underline-offset-4 transition-colors hover:text-primary hover:underline"
         >
           Create an account
         </Link>

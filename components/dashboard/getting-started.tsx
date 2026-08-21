@@ -97,17 +97,18 @@ export function GettingStarted() {
   return (
     <div className="space-y-6">
       {/* Welcome header */}
-      <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-8">
+      <section className="gradient-border relative overflow-hidden rounded-2xl border border-transparent bg-[linear-gradient(155deg,rgba(215,255,62,0.08)_0%,rgba(0,245,160,0.06)_35%,rgba(8,13,11,0.96)_100%)] p-6 sm:p-8">
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/15 blur-[100px]"
         />
         <div className="relative">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-primary">
             Welcome to FundedBook
           </p>
-          <h1 className="mt-2 text-[26px] font-bold leading-tight tracking-tight sm:text-[30px]">
-            Your journal is empty — and that&apos;s a good thing.
+          <h1 className="mt-3 text-[21px] font-bold leading-[1.25] sm:text-[25px]">
+            Your journal is empty —{" "}
+            <span className="text-gradient">and that&apos;s a good thing.</span>
           </h1>
           <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-muted-foreground">
             No sample data, no fake P&amp;L{email ? (
@@ -127,14 +128,14 @@ export function GettingStarted() {
         {STEPS.map((step, i) => (
           <div
             key={step.title}
-            className="flex flex-col rounded-2xl border border-border bg-card p-5"
+            className="card-hover flex flex-col rounded-2xl border border-border bg-[linear-gradient(158deg,rgba(0,245,160,0.045)_0%,rgba(10,16,13,0.92)_38%,rgba(6,11,9,0.96)_100%)] p-5"
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(215,255,62,0.18),rgba(0,245,160,0.16))] text-primary">
                 <step.icon className="h-[18px] w-[18px]" />
               </span>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-[11px] text-muted-foreground">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-lemon/70">
                   STEP {i + 1}
                 </span>
               </div>
@@ -168,7 +169,7 @@ export function GettingStarted() {
       </section>
 
       {/* Platform tour */}
-      <section className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+      <section className="rounded-2xl border border-border bg-[linear-gradient(158deg,rgba(0,245,160,0.04)_0%,rgba(10,16,13,0.92)_38%,rgba(6,11,9,0.96)_100%)] p-6 sm:p-8">
         <h2 className="text-[16px] font-semibold tracking-tight">
           How the platform works
         </h2>
@@ -179,7 +180,7 @@ export function GettingStarted() {
           {TOUR.map((t) => (
             <div
               key={t.title}
-              className="rounded-xl border border-border bg-secondary/30 p-4"
+              className="card-hover rounded-xl border border-border bg-secondary/40 p-4"
             >
               <div className="flex items-center gap-2.5">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-card text-primary">

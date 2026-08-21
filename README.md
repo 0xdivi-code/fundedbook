@@ -1,7 +1,7 @@
 # FundedBook — Premium Trading Journal
 
-A modern, dark-themed trading journal inspired by Trazella — rebuilt as a premium 2026 trading
-dashboard with rich trade visualization, screenshot galleries, and deep analytics.
+A modern, dark trading journal with a futuristic neon **lemon → emerald** theme — a premium 2026
+trading dashboard with rich trade visualization, screenshot galleries, and deep analytics.
 
 ## Stack
 
@@ -12,13 +12,14 @@ dashboard with rich trade visualization, screenshot galleries, and deep analytic
 - **Lucide** icons
 - **Framer Motion** animations
 - **Recharts** charts
-- **Inter** + **JetBrains Mono** (self-hosted via Fontsource)
+- **Space Grotesk** (UI) + **Orbitron** (display) + **JetBrains Mono** (numerics), self-hosted via Fontsource
 
 ## Features
 
 - **Authentication** — email + password sign-up (with password confirmation),
   sign-in, sign-out, and email verification, powered by Supabase. All app
-  routes are protected; unauthenticated visitors land on `/login`.
+  routes are protected; there is no marketing landing page — unauthenticated visitors go
+  straight to `/login`.
 - **Clean start** — new accounts get an **empty journal** (no demo data) and a
   built-in getting-started guide that walks through the platform.
 - **Dashboard** — Net P&L, win rate, profit factor, avg win/loss, total trades, expectancy,

@@ -24,7 +24,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 border-r border-border bg-[#0a0b0f] lg:block">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 border-r border-border bg-[linear-gradient(185deg,rgba(0,245,160,0.05)_0%,rgba(6,11,9,0.98)_38%,rgba(4,7,6,1)_100%)] lg:block">
         <SidebarContent />
       </aside>
 

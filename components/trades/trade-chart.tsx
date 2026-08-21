@@ -116,16 +116,16 @@ export function TradeChart({
     >
       <defs>
         <linearGradient id={`up-${seed}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#34d399" />
-          <stop offset="100%" stopColor="#0d8f63" />
+          <stop offset="0%" stopColor="#00f5a0" />
+          <stop offset="100%" stopColor="#037a53" />
         </linearGradient>
         <linearGradient id={`down-${seed}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#fb7185" />
-          <stop offset="100%" stopColor="#b2253f" />
+          <stop offset="0%" stopColor="#ff4d6d" />
+          <stop offset="100%" stopColor="#8f1c33" />
         </linearGradient>
         <linearGradient id={`bg-${seed}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#14151c" stopOpacity="1" />
-          <stop offset="100%" stopColor="#0d0e13" stopOpacity="1" />
+          <stop offset="0%" stopColor="#0d1714" stopOpacity="1" />
+          <stop offset="100%" stopColor="#070d0b" stopOpacity="1" />
         </linearGradient>
       </defs>
 
@@ -212,7 +212,7 @@ export function TradeChart({
         {candles.map((c, i) => {
           const x = padL + step * i + step / 2;
           const up = c.close >= c.open;
-          const color = up ? "#34d399" : "#fb7185";
+          const color = up ? "#00f5a0" : "#ff4d6d";
           const bodyTop = y(Math.max(c.open, c.close));
           const bodyBottom = y(Math.min(c.open, c.close));
           const bodyHeight = Math.max(1.2, bodyBottom - bodyTop);
@@ -251,7 +251,7 @@ export function TradeChart({
               y1={ly}
               x2={W - padR}
               y2={ly}
-              stroke={up ? "#34d399" : "#fb7185"}
+              stroke={up ? "#00f5a0" : "#ff4d6d"}
               strokeWidth="1"
               strokeDasharray="3 3"
               opacity="0.7"
@@ -262,13 +262,13 @@ export function TradeChart({
               width={padR}
               height={16}
               rx="2"
-              fill={up ? "#34d399" : "#fb7185"}
+              fill={up ? "#00f5a0" : "#ff4d6d"}
             />
             <text
               x={W - padR + 4}
               y={ly + 3.5}
               fontSize="9.5"
-              fill="#0b0c10"
+              fill="#060c0a"
               fontFamily="JetBrains Mono Variable, monospace"
               fontWeight="600"
             >

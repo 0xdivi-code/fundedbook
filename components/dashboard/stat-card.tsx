@@ -20,7 +20,10 @@ const toneStyles: Record<string, { icon: string; value: string }> = {
   default: { icon: "bg-secondary text-muted-foreground", value: "text-foreground" },
   profit: { icon: "bg-profit/12 text-profit", value: "text-profit" },
   loss: { icon: "bg-loss/12 text-loss", value: "text-loss" },
-  primary: { icon: "bg-primary/12 text-primary", value: "text-primary" },
+  primary: {
+    icon: "bg-[linear-gradient(135deg,rgba(215,255,62,0.18),rgba(0,245,160,0.18))] text-primary",
+    value: "text-gradient",
+  },
 };
 
 export function StatCard({
@@ -63,12 +66,12 @@ export function StatCard({
           )}
         </div>
 
-        <p className="mt-4 text-[12px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+        <p className="mt-4 font-mono text-[10.5px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
           {label}
         </p>
         <p
           className={cn(
-            "mt-1 font-mono text-[26px] font-bold leading-none tracking-tight tabular-nums",
+            "mt-1.5 font-display text-[24px] font-bold leading-none tracking-tight tabular-nums",
             styles.value
           )}
         >

@@ -1,56 +1,65 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/orbitron";
 @import "@fontsource-variable/jetbrains-mono";
 
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, sans-serif;
+  /* ── Typography ────────────────────────────────────────────────
+     Space Grotesk  → UI / body (geometric, technical, futuristic)
+     Orbitron       → display headings, logo, big numbers
+     JetBrains Mono → tabular figures, prices, code             */
+  --font-sans: "Space Grotesk Variable", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Orbitron Variable", "Space Grotesk Variable",
+    ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular",
     Menlo, monospace;
 
-  /* Surfaces */
-  --color-background: #07080b;
-  --color-foreground: #e9e9ee;
-  --color-card: #0e0f14;
-  --color-card-foreground: #e9e9ee;
-  --color-popover: #121319;
-  --color-popover-foreground: #e9e9ee;
+  /* ── Surfaces (near-black with a cold green cast) ───────────── */
+  --color-background: #040706;
+  --color-foreground: #e6f6ee;
+  --color-card: #0a100d;
+  --color-card-foreground: #e6f6ee;
+  --color-popover: #0c1512;
+  --color-popover-foreground: #e6f6ee;
 
-  /* Brand */
-  --color-primary: #7c6aff;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #17181f;
-  --color-secondary-foreground: #e9e9ee;
-  --color-accent: #1a1b23;
-  --color-accent-foreground: #e9e9ee;
+  /* ── Brand: neon emerald + acid lemon ───────────────────────── */
+  --color-primary: #00f5a0;
+  --color-primary-foreground: #03140c;
+  --color-lemon: #d7ff3e;
+  --color-lemon-foreground: #131a03;
+  --color-secondary: #101b17;
+  --color-secondary-foreground: #e6f6ee;
+  --color-accent: #16241e;
+  --color-accent-foreground: #eafff5;
 
-  /* Semantic */
-  --color-muted: #16171d;
-  --color-muted-foreground: #8b8d99;
-  --color-destructive: #f43f5e;
+  /* ── Semantic ───────────────────────────────────────────────── */
+  --color-muted: #0f1813;
+  --color-muted-foreground: #7b9188;
+  --color-destructive: #ff4d6d;
   --color-destructive-foreground: #ffffff;
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
+  --color-success: #00f5a0;
+  --color-warning: #ffd23f;
 
-  /* P&L semantics */
-  --color-profit: #34d399;
-  --color-loss: #fb7185;
-  --color-flat: #8b8d99;
+  /* ── P&L semantics ──────────────────────────────────────────── */
+  --color-profit: #00f5a0;
+  --color-loss: #ff4d6d;
+  --color-flat: #7b9188;
 
-  /* Lines */
-  --color-border: #1e2028;
-  --color-input: #1a1c24;
-  --color-ring: #7c6aff;
+  /* ── Lines ──────────────────────────────────────────────────── */
+  --color-border: #1a2b24;
+  --color-input: #0e1a15;
+  --color-ring: #00f5a0;
 
-  /* Charts */
-  --color-chart-1: #7c6aff;
-  --color-chart-2: #34d399;
-  --color-chart-3: #f59e0b;
-  --color-chart-4: #38bdf8;
-  --color-chart-5: #fb7185;
-  --color-chart-6: #a78bfa;
-  --color-chart-7: #2dd4bf;
+  /* ── Charts ─────────────────────────────────────────────────── */
+  --color-chart-1: #00f5a0;
+  --color-chart-2: #d7ff3e;
+  --color-chart-3: #00d9c0;
+  --color-chart-4: #8bff5a;
+  --color-chart-5: #ff4d6d;
+  --color-chart-6: #3ee6b0;
+  --color-chart-7: #a6ff00;
 
   --radius-sm: 0.5rem;
   --radius-md: 0.625rem;
@@ -58,10 +67,12 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.25rem;
 
-  --shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.03) inset,
-    0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-float: 0 12px 32px -12px rgba(0, 0, 0, 0.7);
-  --shadow-glow: 0 0 40px -10px rgba(124, 106, 255, 0.35);
+  --shadow-card: 0 1px 0 0 rgba(215, 255, 62, 0.05) inset,
+    0 1px 2px rgba(0, 0, 0, 0.55);
+  --shadow-float: 0 18px 44px -18px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(0, 245, 160, 0.06);
+  --shadow-glow: 0 0 40px -10px rgba(0, 245, 160, 0.45);
+  --shadow-glow-lemon: 0 0 40px -10px rgba(215, 255, 62, 0.45);
 }
 
 @layer base {
@@ -78,31 +89,42 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-feature-settings: "ss01", "ss02", "cv01", "tnum";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background-image: radial-gradient(
-        60rem 40rem at 12% -12%,
-        rgba(124, 106, 255, 0.09),
-        transparent 60%
-      ),
+    background-image:
+      /* emerald bloom, top-left */
       radial-gradient(
-        50rem 36rem at 100% 0%,
-        rgba(52, 211, 153, 0.05),
-        transparent 55%
-      );
+        58rem 38rem at 8% -14%,
+        rgba(0, 245, 160, 0.1),
+        transparent 62%
+      ),
+      /* lemon bloom, top-right */
+        radial-gradient(
+          46rem 34rem at 102% -6%,
+          rgba(215, 255, 62, 0.07),
+          transparent 58%
+        ),
+      /* deep teal floor */
+        radial-gradient(
+          70rem 44rem at 50% 118%,
+          rgba(0, 217, 192, 0.06),
+          transparent 60%
+        ),
+      linear-gradient(180deg, #040706 0%, #040807 55%, #050a08 100%);
     background-attachment: fixed;
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-primary) 32%, transparent);
-    color: var(--color-foreground);
+    background: color-mix(in oklab, var(--color-lemon) 40%, transparent);
+    color: #f2fff4;
   }
 
   /* Scrollbars */
   * {
     scrollbar-width: thin;
-    scrollbar-color: #26272f transparent;
+    scrollbar-color: #1f3a2f transparent;
   }
   *::-webkit-scrollbar {
     width: 8px;
@@ -112,19 +134,31 @@
     background: transparent;
   }
   *::-webkit-scrollbar-thumb {
-    background: #26272f;
+    background: linear-gradient(180deg, #1f3a2f, #16302a);
     border-radius: 9999px;
   }
   *::-webkit-scrollbar-thumb:hover {
-    background: #32343e;
+    background: linear-gradient(180deg, #2b5546, #1f4438);
   }
 
   h1,
   h2,
-  h3,
-  h4 {
-    letter-spacing: -0.02em;
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.005em;
   }
+
+  h4,
+  h5,
+  h6 {
+    letter-spacing: -0.015em;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.005em;
 }
 
 @utility no-scrollbar {
@@ -134,31 +168,103 @@
   }
 }
 
+/* ── Gradient text ───────────────────────────────────────────── */
+
 @utility text-gradient {
-  background: linear-gradient(120deg, #ffffff 0%, #c9c6ff 55%, #8f86ff 100%);
+  background: linear-gradient(
+    112deg,
+    #eaffd4 0%,
+    #d7ff3e 38%,
+    #00f5a0 78%,
+    #00d9c0 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
+@utility text-gradient-lemon {
+  background: linear-gradient(112deg, #f6ffcf 0%, #d7ff3e 55%, #a6ff00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-emerald {
+  background: linear-gradient(112deg, #d6fff0 0%, #00f5a0 55%, #00d9c0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Surfaces & borders ──────────────────────────────────────── */
+
+@utility gradient-primary {
+  background-image: linear-gradient(112deg, #d7ff3e 0%, #6dfb78 45%, #00f5a0 100%);
+}
+
+@utility gradient-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(215, 255, 62, 0.55),
+      rgba(0, 245, 160, 0.35) 45%,
+      rgba(0, 217, 192, 0.08) 80%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility panel-glass {
+  background-image: linear-gradient(
+    160deg,
+    rgba(0, 245, 160, 0.055) 0%,
+    rgba(10, 16, 13, 0.86) 42%,
+    rgba(4, 7, 6, 0.94) 100%
+  );
+  backdrop-filter: blur(18px);
+}
+
 @utility grid-pattern {
   background-image: linear-gradient(
       to right,
-      rgba(255, 255, 255, 0.025) 1px,
+      rgba(0, 245, 160, 0.045) 1px,
       transparent 1px
     ),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 24px 24px;
+    linear-gradient(to bottom, rgba(0, 245, 160, 0.045) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 
 @utility card-hover {
-  transition: border-color 0.2s ease, background-color 0.2s ease,
-    transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.22s ease, background-color 0.22s ease,
+    transform 0.22s ease, box-shadow 0.22s ease;
   &:hover {
-    border-color: rgba(255, 255, 255, 0.12);
-    background-color: color-mix(in oklab, var(--color-card) 92%, white 2%);
+    border-color: rgba(0, 245, 160, 0.3);
+    background-color: color-mix(in oklab, var(--color-card) 88%, #00f5a0 3%);
+    box-shadow: 0 0 0 1px rgba(0, 245, 160, 0.08),
+      0 18px 40px -26px rgba(0, 245, 160, 0.5);
   }
 }
+
+@utility glow-emerald {
+  box-shadow: 0 0 32px -12px rgba(0, 245, 160, 0.6);
+}
+
+@utility glow-lemon {
+  box-shadow: 0 0 32px -12px rgba(215, 255, 62, 0.6);
+}
+
+/* ── Motion ──────────────────────────────────────────────────── */
 
 @keyframes shimmer {
   100% {
@@ -180,4 +286,20 @@
 
 @utility animate-pulse-dot {
   animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(3%, -4%, 0) scale(1.08);
+    opacity: 1;
+  }
+}
+
+@utility animate-aurora {
+  animation: aurora-drift 14s ease-in-out infinite;
 }

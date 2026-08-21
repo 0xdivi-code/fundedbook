@@ -32,14 +32,14 @@ import { formatCurrency, formatPercent, formatR } from "@/lib/format";
 import type { Strategy } from "@/lib/types";
 
 const SWATCHES = [
-  "#7c6aff",
-  "#34d399",
-  "#f59e0b",
-  "#38bdf8",
-  "#fb7185",
-  "#a78bfa",
-  "#2dd4bf",
-  "#fbbf24",
+  "#00f5a0",
+  "#d7ff3e",
+  "#00d9c0",
+  "#8bff5a",
+  "#a6ff00",
+  "#3ee6b0",
+  "#c6f24a",
+  "#7ef7c2",
 ];
 
 interface StrategyForm {
@@ -232,11 +232,11 @@ export default function PlaybookPage() {
                   </p>
 
                   <div className="mt-3 flex flex-wrap gap-1.5">
-                    <span className="flex items-center gap-1 rounded-md bg-white/[0.05] px-2 py-0.5 text-[11px] text-muted-foreground">
+                    <span className="flex items-center gap-1 rounded-md bg-primary/[0.07] px-2 py-0.5 text-[11px] text-muted-foreground">
                       <Globe className="h-3 w-3" />
                       {s.market}
                     </span>
-                    <span className="flex items-center gap-1 rounded-md bg-white/[0.05] px-2 py-0.5 text-[11px] text-muted-foreground">
+                    <span className="flex items-center gap-1 rounded-md bg-primary/[0.07] px-2 py-0.5 text-[11px] text-muted-foreground">
                       <Clock className="h-3 w-3" />
                       {s.timeframe}
                     </span>
