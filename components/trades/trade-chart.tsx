@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { mulberry32 } from "@/lib/seed";
+import { mulberry32 } from "@/lib/random";
 import { cn } from "@/lib/utils";
 
 interface Candle {

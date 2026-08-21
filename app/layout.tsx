@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { JournalProvider } from "@/lib/store";
+import { AuthProvider } from "@/components/auth/auth-provider";
 import { ToastProvider } from "@/components/ui/toast";
-import { LightboxProvider } from "@/components/trades/lightbox";
-import { UIProvider } from "@/components/layout/ui-provider";
-import { AppShell } from "@/components/layout/app-shell";
 
 export const metadata: Metadata = {
   title: {
@@ -27,15 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full">
-        <JournalProvider>
-          <ToastProvider>
-            <LightboxProvider>
-              <UIProvider>
-                <AppShell>{children}</AppShell>
-              </UIProvider>
-            </LightboxProvider>
-          </ToastProvider>
-        </JournalProvider>
+        <AuthProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </AuthProvider>
       </body>
     </html>
   );

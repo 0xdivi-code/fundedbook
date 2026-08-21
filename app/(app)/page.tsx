@@ -39,6 +39,7 @@ import { DrawdownChart } from "@/components/charts/drawdown-chart";
 import { PerformanceBars } from "@/components/charts/performance-chart";
 import { DonutChart } from "@/components/charts/donut-chart";
 import { TradeCard } from "@/components/trades/trade-card";
+import { GettingStarted } from "@/components/dashboard/getting-started";
 
 type Period = "daily" | "weekly" | "monthly";
 
@@ -83,6 +84,12 @@ export default function DashboardPage() {
 
   const recent = computed.slice(0, 6);
   const openPositions = computed.filter((t) => t.status === "open");
+
+  // Brand-new account: no demo data — show the onboarding guide instead of
+  // an all-zero dashboard. The real dashboard appears with the first trade.
+  if (trades.length === 0) {
+    return <GettingStarted />;
+  }
 
   return (
     <div className="space-y-6">

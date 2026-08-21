@@ -1,8 +1,11 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import {
+  CircleUserRound,
   Database,
+  LogOut,
   Palette,
   Percent,
   RotateCcw,
@@ -19,6 +22,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useJournal } from "@/lib/store";
 import { computeTrade, summarize } from "@/lib/analytics";
+import { useAuth } from "@/components/auth/auth-provider";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatPercent } from "@/lib/format";
@@ -46,8 +50,10 @@ function exportData(trades: unknown, strategies: unknown, settings: unknown) {
 }
 
 export default function SettingsPage() {
-  const { trades, strategies, settings, updateSettings, resetData } = useJournal();
+  const { trades, strategies, settings, updateSettings, clearAllData } = useJournal();
+  const { user, signOut } = useAuth();
   const { toast } = useToast();
+  const router = useRouter();
 
   const [accountSize, setAccountSize] = React.useState(String(settings.accountSize));
   const [riskPerTrade, setRiskPerTrade] = React.useState(String(settings.riskPerTrade));
@@ -91,14 +97,19 @@ export default function SettingsPage() {
   };
 
   const handleReset = () => {
-    resetData();
+    clearAllData();
     setAccountSize("50000");
     setRiskPerTrade("1");
     setDefaultQuantity("100");
     setShowUnrealized(true);
     setCompactNumbers(false);
     setAccent("#7c6aff");
-    toast({ variant: "info", title: "Sample data restored", description: "Trades and settings reset to defaults." });
+    toast({ variant: "info", title: "Journal cleared", description: "All trades, strategies and settings were reset to a clean slate." });
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.replace("/login");
   };
 
   const err = (k: string) => (touched && errors[k] ? errors[k] : undefined);
@@ -250,6 +261,35 @@ export default function SettingsPage() {
         </div>
       </Card>
 
+      {/* Account */}
+      <Card className="p-6">
+        <div className="mb-2 flex items-center gap-2.5">
+          <CircleUserRound className="h-4 w-4 text-primary" />
+          <h3 className="text-[15px] font-semibold tracking-tight">Account</h3>
+        </div>
+        <p className="mb-5 text-[13px] text-muted-foreground">
+          You sign in with your email and password. Your journal is private and
+          scoped to this account.
+        </p>
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-secondary/40 px-4 py-3">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#38bdf8] to-[#7c6aff] text-[11px] font-bold text-white">
+              {(user?.email ?? "FB").slice(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <p className="text-[13.5px] font-medium">{user?.email ?? "—"}</p>
+              <p className="text-[11.5px] text-muted-foreground">
+                Signed in with email · password
+              </p>
+            </div>
+          </div>
+          <Button variant="outline" size="sm" onClick={handleSignOut}>
+            <LogOut className="h-3.5 w-3.5" />
+            Sign out
+          </Button>
+        </div>
+      </Card>
+
       {/* Data */}
       <Card className="border-destructive/25 p-6">
         <div className="mb-2 flex items-center gap-2.5">
@@ -257,13 +297,14 @@ export default function SettingsPage() {
           <h3 className="text-[15px] font-semibold tracking-tight text-loss">Danger zone</h3>
         </div>
         <p className="mb-5 text-[13px] text-muted-foreground">
-          Data is stored locally in your browser. Restoring the sample dataset
-          overwrites your current trades and strategies.
+          Your journal is stored privately in this browser for this account.
+          Clearing removes every logged trade and strategy — export a backup
+          first if you might want it back.
         </p>
         <div className="flex flex-wrap gap-3">
           <Button variant="outline" onClick={handleReset}>
             <RotateCcw className="h-4 w-4" />
-            Reset to sample data
+            Clear all data
           </Button>
           <Button
             variant="destructive"

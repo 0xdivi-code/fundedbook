@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowUpRight, CircleUserRound, Sparkles } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { NAV_ITEMS, NAV_SECTIONS } from "./nav";
 import { useJournal } from "@/lib/store";
+import { useAuth, initialsFromEmail } from "@/components/auth/auth-provider";
 import { computeTrade, summarize } from "@/lib/analytics";
 import { formatCurrency, formatPercent } from "@/lib/format";
 
 export function SidebarContent() {
   const pathname = usePathname();
   const { trades } = useJournal();
+  const { user } = useAuth();
   const computed = trades.map(computeTrade);
   const summary = summarize(computed);
 
@@ -89,37 +91,43 @@ export function SidebarContent() {
               summary.netPnl >= 0 ? "text-profit" : "text-loss"
             )}
           >
-            {formatCurrency(summary.netPnl)}
+            {trades.length === 0 ? "—" : formatCurrency(summary.netPnl)}
           </p>
-          <div className="mt-3 flex items-center justify-between text-[12px]">
-            <span className="text-muted-foreground">
-              {formatPercent(summary.winRate, 0)} win rate
-            </span>
-            <span
-              className={cn(
-                "flex items-center gap-0.5 font-medium",
-                summary.netPnl >= 0 ? "text-profit" : "text-loss"
-              )}
-            >
-              <ArrowUpRight className="h-3 w-3" />
-              {summary.totalTrades} trades
-            </span>
-          </div>
+          {trades.length === 0 ? (
+            <p className="mt-3 text-[12px] leading-snug text-muted-foreground">
+              Log your first trade to start tracking your edge.
+            </p>
+          ) : (
+            <div className="mt-3 flex items-center justify-between text-[12px]">
+              <span className="text-muted-foreground">
+                {formatPercent(summary.winRate, 0)} win rate
+              </span>
+              <span
+                className={cn(
+                  "flex items-center gap-0.5 font-medium",
+                  summary.netPnl >= 0 ? "text-profit" : "text-loss"
+                )}
+              >
+                <ArrowUpRight className="h-3 w-3" />
+                {summary.totalTrades} trades
+              </span>
+            </div>
+          )}
         </div>
 
         <Link
           href="/settings"
           className="mt-3 flex items-center gap-3 rounded-xl px-2.5 py-2 transition-colors hover:bg-white/[0.04]"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#38bdf8] to-[#7c6aff] text-white">
-            <CircleUserRound className="h-5 w-5" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#38bdf8] to-[#7c6aff] text-[11px] font-bold text-white">
+            {initialsFromEmail(user?.email)}
           </div>
-          <div className="flex flex-col leading-none">
-            <span className="text-[13px] font-medium text-foreground">
-              Alex Carter
+          <div className="flex min-w-0 flex-col leading-none">
+            <span className="max-w-[150px] truncate text-[13px] font-medium text-foreground">
+              {user?.email ?? "Signed in"}
             </span>
             <span className="mt-0.5 text-[11px] text-muted-foreground">
-              Pro Trader
+              Account & settings
             </span>
           </div>
         </Link>
