@@ -23,6 +23,7 @@ import { useJournal } from "@/lib/store";
 import { computeTrade, pnlByDay } from "@/lib/analytics";
 import { TradeCard } from "@/components/trades/trade-card";
 import { DirectionBadge } from "@/components/trades/trade-badges";
+import { EmptyDataHint } from "@/components/dashboard/empty-hint";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatPercent } from "@/lib/format";
 
@@ -65,6 +66,13 @@ export default function CalendarPage() {
 
   return (
     <div className="space-y-5">
+      {trades.length === 0 && (
+        <EmptyDataHint
+          title="Your calendar fills in as you trade"
+          text="Each day you log will show up as a green or red P&L cell — quickly revealing your best and worst trading days."
+        />
+      )}
+
       {/* Header */}
       <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">

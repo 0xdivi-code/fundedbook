@@ -10,9 +10,14 @@ import {
   useState,
 } from "react";
 import type { Settings, Strategy, Trade } from "./types";
-import { generateSeedTrades, STRATEGIES } from "./seed";
+import { STARTER_STRATEGIES } from "./strategies";
 
-const STORAGE_KEY = "fundedbook:v1";
+/**
+ * Journal data is scoped per authenticated user:
+ *   fundedbook:v1:<userId>
+ * Every new account starts completely empty — no demo trades, ever.
+ */
+const storageKey = (userId: string) => `fundedbook:v1:${userId}`;
 
 export const DEFAULT_SETTINGS: Settings = {
   accountSize: 50000,
@@ -43,15 +48,15 @@ interface JournalContextValue {
   addStrategy: (strategy: Strategy) => void;
   updateStrategy: (id: string, patch: Partial<Strategy>) => void;
   deleteStrategy: (id: string) => void;
-  resetData: () => void;
+  clearAllData: () => void;
 }
 
 const JournalContext = createContext<JournalContextValue | null>(null);
 
-function load(): PersistShape | null {
+function load(userId: string): PersistShape | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(storageKey(userId));
     if (!raw) return null;
     const parsed = JSON.parse(raw) as PersistShape;
     if (!Array.isArray(parsed.trades)) return null;
@@ -60,18 +65,23 @@ function load(): PersistShape | null {
       settings: { ...DEFAULT_SETTINGS, ...parsed.settings },
       strategies: Array.isArray(parsed.strategies)
         ? parsed.strategies
-        : STRATEGIES,
+        : STARTER_STRATEGIES,
     };
   } catch {
     return null;
   }
 }
 
-function save(trades: Trade[], settings: Settings, strategies: Strategy[]) {
+function save(
+  userId: string,
+  trades: Trade[],
+  settings: Settings,
+  strategies: Strategy[]
+) {
   if (typeof window === "undefined") return;
   try {
     window.localStorage.setItem(
-      STORAGE_KEY,
+      storageKey(userId),
       JSON.stringify({ trades, settings, strategies } satisfies PersistShape)
     );
   } catch {
@@ -82,7 +92,7 @@ function save(trades: Trade[], settings: Settings, strategies: Strategy[]) {
         screenshots: t.screenshots.slice(0, 2),
       }));
       window.localStorage.setItem(
-        STORAGE_KEY,
+        storageKey(userId),
         JSON.stringify({ trades: slim, settings, strategies } satisfies PersistShape)
       );
     } catch {
@@ -91,16 +101,24 @@ function save(trades: Trade[], settings: Settings, strategies: Strategy[]) {
   }
 }
 
-export function JournalProvider({ children }: { children: React.ReactNode }) {
-  const [trades, setTrades] = useState<Trade[]>(() => generateSeedTrades());
-  const [strategies, setStrategies] = useState<Strategy[]>(STRATEGIES);
+export function JournalProvider({
+  userId,
+  children,
+}: {
+  userId: string;
+  children: React.ReactNode;
+}) {
+  // New accounts always start empty. The dashboard shows a getting-started
+  // guide until the first trade is logged.
+  const [trades, setTrades] = useState<Trade[]>([]);
+  const [strategies, setStrategies] = useState<Strategy[]>(STARTER_STRATEGIES);
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [hydrated, setHydrated] = useState(false);
   const firstLoad = useRef(true);
 
-  // Hydrate from localStorage on the client only.
+  // Hydrate from this user's localStorage on the client only.
   useEffect(() => {
-    const persisted = load();
+    const persisted = load(userId);
     if (persisted) {
       // Synchronizing external (localStorage) state into React on mount —
       // this is the canonical hydration pattern, hence the rule relaxation.
@@ -110,7 +128,7 @@ export function JournalProvider({ children }: { children: React.ReactNode }) {
       setStrategies(persisted.strategies);
     }
     setHydrated(true);
-  }, []);
+  }, [userId]);
 
   // Persist on change (skip the first render so we don't clobber storage).
   useEffect(() => {
@@ -118,8 +136,8 @@ export function JournalProvider({ children }: { children: React.ReactNode }) {
       firstLoad.current = false;
       return;
     }
-    if (hydrated) save(trades, settings, strategies);
-  }, [trades, settings, strategies, hydrated]);
+    if (hydrated) save(userId, trades, settings, strategies);
+  }, [userId, trades, settings, strategies, hydrated]);
 
   const addTrade = useCallback((trade: Trade) => {
     setTrades((prev) => [trade, ...prev]);
@@ -151,10 +169,10 @@ export function JournalProvider({ children }: { children: React.ReactNode }) {
     setStrategies((prev) => prev.filter((s) => s.id !== id));
   }, []);
 
-  const resetData = useCallback(() => {
-    setTrades(generateSeedTrades());
+  const clearAllData = useCallback(() => {
+    setTrades([]);
     setSettings(DEFAULT_SETTINGS);
-    setStrategies(STRATEGIES);
+    setStrategies(STARTER_STRATEGIES);
   }, []);
 
   const value = useMemo<JournalContextValue>(
@@ -170,7 +188,7 @@ export function JournalProvider({ children }: { children: React.ReactNode }) {
       addStrategy,
       updateStrategy,
       deleteStrategy,
-      resetData,
+      clearAllData,
     }),
     [
       trades,
@@ -184,7 +202,7 @@ export function JournalProvider({ children }: { children: React.ReactNode }) {
       addStrategy,
       updateStrategy,
       deleteStrategy,
-      resetData,
+      clearAllData,
     ]
   );
 

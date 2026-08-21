@@ -33,7 +33,7 @@ import {
 import { useUI } from "@/components/layout/ui-provider";
 import { useJournal } from "@/lib/store";
 import { useToast } from "@/components/ui/toast";
-import { SAMPLE_SYMBOLS } from "@/lib/seed";
+import { SAMPLE_SYMBOLS } from "@/lib/suggestions";
 import type { Direction, Screenshot, Trade, TradeDraft } from "@/lib/types";
 import { uid, cn } from "@/lib/utils";
 import { formatCurrency, formatR } from "@/lib/format";

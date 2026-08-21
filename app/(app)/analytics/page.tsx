@@ -42,6 +42,7 @@ import {
   formatR,
 } from "@/lib/format";
 import type { DimensionStat } from "@/lib/analytics";
+import { EmptyDataHint } from "@/components/dashboard/empty-hint";
 
 type Period = "daily" | "weekly" | "monthly";
 const PERIODS: { value: Period; label: string }[] = [
@@ -86,6 +87,13 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-5">
+      {trades.length === 0 && (
+        <EmptyDataHint
+          title="Analytics unlocks with your first trades"
+          text="Equity curve, win rate and strategy breakdowns become meaningful after roughly 20 logged trades — start journaling and check back."
+        />
+      )}
+
       {/* Stat strip */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
         <StatCard index={0} label="Net P&L" value={formatCurrency(summary.netPnl)} sub={`${summary.totalFees ? `${formatCurrency(summary.totalFees)} fees` : ""}`} icon={Wallet} tone={summary.netPnl >= 0 ? "profit" : "loss"} />
