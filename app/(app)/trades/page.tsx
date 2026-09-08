@@ -40,6 +40,7 @@ import {
   StrategyBadge,
 } from "@/components/trades/trade-badges";
 import { useUI } from "@/components/layout/ui-provider";
+import { JournalLoading } from "@/components/layout/journal-loading";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatPrice, formatR, formatShortDate } from "@/lib/format";
@@ -59,7 +60,8 @@ const SORTS: { value: SortKey; label: string }[] = [
 ];
 
 export default function TradesPage() {
-  const { trades, strategies, deleteTrade } = useJournal();
+  const { trades, strategies, deleteTrade, hydrated, loadFailed, retryLoad } =
+    useJournal();
   const { openAdd } = useUI();
   const { toast } = useToast();
 
@@ -118,6 +120,10 @@ export default function TradesPage() {
       description: `${t.symbol} ${t.direction.toUpperCase()} was removed from your journal.`,
     });
   };
+
+  if (!hydrated) {
+    return <JournalLoading loadFailed={loadFailed} onRetry={retryLoad} />;
+  }
 
   return (
     <div className="space-y-5">

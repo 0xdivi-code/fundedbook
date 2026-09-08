@@ -27,6 +27,7 @@ import {
   StrategyBadge,
 } from "@/components/trades/trade-badges";
 import { useUI } from "@/components/layout/ui-provider";
+import { JournalLoading } from "@/components/layout/journal-loading";
 import { useToast } from "@/components/ui/toast";
 import { cn, uid } from "@/lib/utils";
 import {
@@ -41,11 +42,18 @@ import type { ComputedTrade, Screenshot } from "@/lib/types";
 export default function TradeDetailsPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
-  const { trades, strategies, deleteTrade } = useJournal();
+  const { trades, strategies, deleteTrade, hydrated, loadFailed, retryLoad } =
+    useJournal();
   const { openAdd } = useUI();
   const { toast } = useToast();
 
   const trade = trades.find((t) => t.id === params.id);
+
+  // The journal may still be loading from the database — don't report
+  // "not found" before it arrives.
+  if (!hydrated) {
+    return <JournalLoading loadFailed={loadFailed} onRetry={retryLoad} />;
+  }
 
   if (!trade) {
     return (

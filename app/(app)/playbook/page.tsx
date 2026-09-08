@@ -27,6 +27,7 @@ import {
 import { useJournal } from "@/lib/store";
 import { computeTrade, strategyPerformance } from "@/lib/analytics";
 import { useToast } from "@/components/ui/toast";
+import { JournalLoading } from "@/components/layout/journal-loading";
 import { cn, uid } from "@/lib/utils";
 import { formatCurrency, formatPercent, formatR } from "@/lib/format";
 import type { Strategy } from "@/lib/types";
@@ -65,8 +66,16 @@ const emptyForm = (): StrategyForm => ({
 });
 
 export default function PlaybookPage() {
-  const { trades, strategies, addStrategy, updateStrategy, deleteStrategy } =
-    useJournal();
+  const {
+    trades,
+    strategies,
+    addStrategy,
+    updateStrategy,
+    deleteStrategy,
+    hydrated,
+    loadFailed,
+    retryLoad,
+  } = useJournal();
   const { toast } = useToast();
   const [open, setOpen] = React.useState(false);
   const [editing, setEditing] = React.useState<Strategy | null>(null);
@@ -158,6 +167,10 @@ export default function PlaybookPage() {
     deleteStrategy(s.id);
     toast({ variant: "info", title: "Strategy removed", description: `${s.name} was removed from your playbook.` });
   };
+
+  if (!hydrated) {
+    return <JournalLoading loadFailed={loadFailed} onRetry={retryLoad} />;
+  }
 
   return (
     <div className="space-y-5">

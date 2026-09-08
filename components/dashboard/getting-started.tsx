@@ -8,8 +8,9 @@ import {
   CalendarDays,
   Camera,
   Command,
+  Database,
+  GraduationCap,
   LayoutDashboard,
-  Lock,
   PenLine,
   Plus,
   Target,
@@ -17,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useUI } from "@/components/layout/ui-provider";
 import { useAuth } from "@/components/auth/auth-provider";
+import { useJournal } from "@/lib/store";
 
 interface Step {
   icon: typeof Plus;
@@ -91,6 +93,7 @@ const TOUR: { icon: typeof Plus; title: string; text: string }[] = [
 
 export function GettingStarted() {
   const { openAdd } = useUI();
+  const { restartTour } = useJournal();
   const { user } = useAuth();
   const email = user?.email ?? "";
 
@@ -170,12 +173,20 @@ export function GettingStarted() {
 
       {/* Platform tour */}
       <section className="rounded-2xl border border-border bg-[linear-gradient(158deg,rgba(0,245,160,0.04)_0%,rgba(10,16,13,0.92)_38%,rgba(6,11,9,0.96)_100%)] p-6 sm:p-8">
-        <h2 className="text-[16px] font-semibold tracking-tight">
-          How the platform works
-        </h2>
-        <p className="mt-1 text-[13px] text-muted-foreground">
-          Six sections, one loop: log → review → refine.
-        </p>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="text-[16px] font-semibold tracking-tight">
+              How the platform works
+            </h2>
+            <p className="mt-1 text-[13px] text-muted-foreground">
+              Six sections, one loop: log → review → refine.
+            </p>
+          </div>
+          <Button variant="outline" size="sm" onClick={restartTour}>
+            <GraduationCap className="h-3.5 w-3.5" />
+            Replay the guided tour
+          </Button>
+        </div>
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {TOUR.map((t) => (
             <div
@@ -205,8 +216,8 @@ export function GettingStarted() {
             anywhere to search trades, symbols and pages.
           </span>
           <span className="flex items-center gap-2">
-            <Lock className="h-3.5 w-3.5" />
-            Your data is private — stored per account, in your browser.
+            <Database className="h-3.5 w-3.5" />
+            Your data is private — stored per account in your cloud database.
           </span>
         </div>
       </section>
