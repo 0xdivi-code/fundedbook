@@ -51,6 +51,11 @@ trading dashboard with rich trade visualization, screenshot galleries, and deep 
 
 ## Getting started
 
+> **Not a coder?** Skip all of this and follow
+> [`NO-CODE-SETUP.md`](./NO-CODE-SETUP.md) — a click-by-click guide that gets
+> you a live journal with a cloud database (Supabase + free Vercel deploy,
+> no terminal).
+
 ```bash
 npm install
 
