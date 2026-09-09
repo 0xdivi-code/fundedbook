@@ -24,11 +24,12 @@ import { computeTrade, pnlByDay } from "@/lib/analytics";
 import { TradeCard } from "@/components/trades/trade-card";
 import { DirectionBadge } from "@/components/trades/trade-badges";
 import { EmptyDataHint } from "@/components/dashboard/empty-hint";
+import { JournalLoading } from "@/components/layout/journal-loading";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatPercent } from "@/lib/format";
 
 export default function CalendarPage() {
-  const { trades } = useJournal();
+  const { trades, hydrated, loadFailed, retryLoad } = useJournal();
   const computed = React.useMemo(() => trades.map(computeTrade), [trades]);
 
   const [month, setMonth] = React.useState(() => startOfMonth(new Date()));
@@ -63,6 +64,10 @@ export default function CalendarPage() {
   const selectedTrades = computed.filter(
     (t) => format(new Date(t.closedAt ?? t.openedAt), "yyyy-MM-dd") === selectedKey
   );
+
+  if (!hydrated) {
+    return <JournalLoading loadFailed={loadFailed} onRetry={retryLoad} />;
+  }
 
   return (
     <div className="space-y-5">

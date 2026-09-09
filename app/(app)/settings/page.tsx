@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   CircleUserRound,
   Database,
+  GraduationCap,
   LogOut,
   Palette,
   Percent,
@@ -24,6 +25,7 @@ import { useJournal } from "@/lib/store";
 import { computeTrade, summarize } from "@/lib/analytics";
 import { useAuth } from "@/components/auth/auth-provider";
 import { useToast } from "@/components/ui/toast";
+import { JournalLoading } from "@/components/layout/journal-loading";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatPercent } from "@/lib/format";
 
@@ -50,7 +52,26 @@ function exportData(trades: unknown, strategies: unknown, settings: unknown) {
 }
 
 export default function SettingsPage() {
-  const { trades, strategies, settings, updateSettings, clearAllData } = useJournal();
+  const { hydrated, loadFailed, retryLoad } = useJournal();
+
+  // The form below initializes its inputs from the journal — render it only
+  // once settings have actually arrived from the database.
+  if (!hydrated) {
+    return <JournalLoading loadFailed={loadFailed} onRetry={retryLoad} />;
+  }
+
+  return <SettingsContent />;
+}
+
+function SettingsContent() {
+  const {
+    trades,
+    strategies,
+    settings,
+    updateSettings,
+    clearAllData,
+    restartTour,
+  } = useJournal();
   const { user, signOut } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
@@ -261,6 +282,24 @@ export default function SettingsPage() {
         </div>
       </Card>
 
+      {/* Platform tour */}
+      <Card className="p-6">
+        <div className="mb-2 flex items-center gap-2.5">
+          <GraduationCap className="h-4 w-4 text-primary" />
+          <h3 className="text-[15px] font-semibold tracking-tight">
+            Platform tour
+          </h3>
+        </div>
+        <p className="mb-5 text-[13px] text-muted-foreground">
+          New to FundedBook — or want a refresher on how to use the platform?
+          Replay the guided tour: it walks through every feature step by step.
+        </p>
+        <Button variant="outline" size="sm" onClick={restartTour}>
+          <GraduationCap className="h-3.5 w-3.5" />
+          Replay the tour
+        </Button>
+      </Card>
+
       {/* Account */}
       <Card className="p-6">
         <div className="mb-2 flex items-center gap-2.5">
@@ -297,9 +336,9 @@ export default function SettingsPage() {
           <h3 className="text-[15px] font-semibold tracking-tight text-loss">Danger zone</h3>
         </div>
         <p className="mb-5 text-[13px] text-muted-foreground">
-          Your journal is stored privately in this browser for this account.
-          Clearing removes every logged trade and strategy — export a backup
-          first if you might want it back.
+          Your journal is stored privately in your FundedBook cloud database,
+          scoped to this account. Clearing removes every logged trade and
+          strategy — export a backup first if you might want it back.
         </p>
         <div className="flex flex-wrap gap-3">
           <Button variant="outline" onClick={handleReset}>

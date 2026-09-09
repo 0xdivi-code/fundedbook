@@ -36,6 +36,7 @@ import { useToast } from "@/components/ui/toast";
 import { SAMPLE_SYMBOLS } from "@/lib/suggestions";
 import type { Direction, Screenshot, Trade, TradeDraft } from "@/lib/types";
 import { uid, cn } from "@/lib/utils";
+import { compressImageFile } from "@/lib/image";
 import { formatCurrency, formatR } from "@/lib/format";
 
 function toLocalInput(iso: string): string {
@@ -227,12 +228,13 @@ function TradeForm({
         });
         return;
       }
-      const reader = new FileReader();
-      reader.onload = () => {
+      // Downscale + re-encode so the row stored in the database stays lean
+      // (falls back to the original data URL if compression fails).
+      void compressImageFile(file).then((url) => {
         const shot: Screenshot = {
           id: uid("shot"),
           kind: "image",
-          url: reader.result as string,
+          url,
           label: "Screenshot",
           createdAt: new Date().toISOString(),
         };
@@ -240,8 +242,7 @@ function TradeForm({
           ...d,
           screenshots: [...d.screenshots, shot],
         }));
-      };
-      reader.readAsDataURL(file);
+      });
     });
   };
 

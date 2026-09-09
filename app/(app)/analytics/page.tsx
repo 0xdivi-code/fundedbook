@@ -43,6 +43,7 @@ import {
 } from "@/lib/format";
 import type { DimensionStat } from "@/lib/analytics";
 import { EmptyDataHint } from "@/components/dashboard/empty-hint";
+import { JournalLoading } from "@/components/layout/journal-loading";
 
 type Period = "daily" | "weekly" | "monthly";
 const PERIODS: { value: Period; label: string }[] = [
@@ -52,7 +53,7 @@ const PERIODS: { value: Period; label: string }[] = [
 ];
 
 export default function AnalyticsPage() {
-  const { trades, strategies } = useJournal();
+  const { trades, strategies, hydrated, loadFailed, retryLoad } = useJournal();
   const computed = React.useMemo(() => trades.map(computeTrade), [trades]);
   const summary = React.useMemo(() => summarize(computed), [computed]);
 
@@ -84,6 +85,10 @@ export default function AnalyticsPage() {
     value: d.trades,
     color: d.color,
   }));
+
+  if (!hydrated) {
+    return <JournalLoading loadFailed={loadFailed} onRetry={retryLoad} />;
+  }
 
   return (
     <div className="space-y-5">

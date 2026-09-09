@@ -40,6 +40,7 @@ import { PerformanceBars } from "@/components/charts/performance-chart";
 import { DonutChart } from "@/components/charts/donut-chart";
 import { TradeCard } from "@/components/trades/trade-card";
 import { GettingStarted } from "@/components/dashboard/getting-started";
+import { JournalLoading } from "@/components/layout/journal-loading";
 
 type Period = "daily" | "weekly" | "monthly";
 
@@ -51,7 +52,7 @@ const PERIODS: { value: Period; label: string }[] = [
 
 export default function DashboardPage() {
   const [period, setPeriod] = React.useState<Period>("daily");
-  const { trades, strategies } = useJournal();
+  const { trades, strategies, hydrated, loadFailed, retryLoad } = useJournal();
   const computed = React.useMemo(() => trades.map(computeTrade), [trades]);
   const summary = React.useMemo(() => summarize(computed), [computed]);
 
@@ -84,6 +85,12 @@ export default function DashboardPage() {
 
   const recent = computed.slice(0, 6);
   const openPositions = computed.filter((t) => t.status === "open");
+
+  // The journal loads from the database after sign-in — don't flash an empty
+  // dashboard (or the getting-started guide) while it's on its way.
+  if (!hydrated) {
+    return <JournalLoading loadFailed={loadFailed} onRetry={retryLoad} />;
+  }
 
   // Brand-new account: no demo data — show the onboarding guide instead of
   // an all-zero dashboard. The real dashboard appears with the first trade.

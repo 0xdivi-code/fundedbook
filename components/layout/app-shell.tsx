@@ -5,6 +5,7 @@ import { SidebarContent } from "./sidebar";
 import { Topbar } from "./topbar";
 import { CommandPalette } from "./command-palette";
 import { AddTradeDrawer } from "@/components/trades/add-trade-drawer";
+import { OnboardingTour } from "@/components/dashboard/onboarding-tour";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -44,6 +45,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <AddTradeDrawer />
       <CommandPalette />
+      <OnboardingTour />
     </div>
   );
 }
